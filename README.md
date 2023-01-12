@@ -62,6 +62,7 @@ let x = 5;
 x = 'hello';
 ```
 - any를 최대한 쓰지 않는 것을 목표로 할 것.
+- 빈 배열을 선언하면 never이 옴!!!!=> 그래서 빈배열 선언할때는 타입을 미리 선언해줘야함!!=> 그게 아니면 추후에 빈배열에 값을 푸시할때 타입 에러가 남!!
 - never, unknown, any 타입 주의하기. any는 최대한 피하고 쓰더라도 나중에 꼭 제대로 타이핑하기.
 [never 좋은 설명 글](https://ui.toast.com/weekly-pick/ko_20220323)
 ```typescript
