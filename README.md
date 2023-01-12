@@ -105,7 +105,7 @@ const tuple: [string, number] = ['1', 1];
 tuple[2] = 'hello';
 tuple.push('hello');
 ```
-- enum, keyof, typeof
+- enum:여러개의 변수를 하나의 그룹으로 묶고 싶을때 쓰임: js로 변환시 안남김, keyof, typeof
 ```typescript
 const enum EDirection {
   Up,
@@ -119,7 +119,7 @@ const ODirection = {
   Down: 1,
   Left: 2,
   Right: 3,
-} as const;
+} as const; // as const란 => 이 속상을 상수로 쓰겟다 읽기 적용으로 쓰겟다! 
  
 EDirection.Up;
            
@@ -135,9 +135,22 @@ function walk(dir: EDirection) {}
 // It requires an extra line to pull out the keys
 type Direction = typeof ODirection[keyof typeof ODirection];
 function run(dir: Direction) {}
+
  
 walk(EDirection.Left);
 run(ODirection.Right);
+```
+- keyof: 객체에서 키를 뽑아 쓰고 싶을때
+- typeof: 자바스크립트 원형인 값을 타입스트립로 쓰고 싶을때 시용
+```typescript
+const obj = {
+    Up: 0,
+    Down: 1,
+    Left: 2,
+    Right: 3,
+} as const;
+type Direction = typeof obj[keyof typeof obj];
+  function run(dir: Direction) {}
 ```
 - 객체 타이핑: type과 interface 구분하기
 ```typescript
