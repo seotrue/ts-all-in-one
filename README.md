@@ -153,6 +153,7 @@ type Direction = typeof obj[keyof typeof obj];
   function run(dir: Direction) {}
 ```
 - 객체 타이핑: type과 interface 구분하기
+- 간단하게 하구 싶으면 type, 상속받고 싶으면 인터페이스 
 ```typescript
 type A = { a: string };
 const a: A = { a: 'hello' };
@@ -160,7 +161,7 @@ const a: A = { a: 'hello' };
 interface B { a: string }
 const b: B = { a: 'hello' };
 ```
-- union, intersection
+- union(or):타입 추론이 잘 안되는게 단점, intersection(& and)
 ```typescript
 function add(x: string | number, y: string | number): string | number { return x + y }
 add(1, 2)
