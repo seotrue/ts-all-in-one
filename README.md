@@ -161,7 +161,7 @@ const a: A = { a: 'hello' };
 interface B { a: string }
 const b: B = { a: 'hello' };
 ```
-- union(or):타입 추론이 잘 안되는게 단점, intersection(& and)
+- union(or):타입 추론이 잘 안되는게 단점, intersection(& and): 상속의 개념으로 쓰인다고도 생각하면 된다
 ```typescript
 function add(x: string | number, y: string | number): string | number { return x + y }
 add(1, 2)
@@ -180,6 +180,9 @@ const bb: A & B = { a: 'hello', b: 'world' };
 
 ```
 - interface끼리는 서로 합쳐짐.
+- 타입과 인터페이스 간에 서로 상속도 가능하다 
+- 인터페이스는 같은 이름으로 선언이 가능하다 =>선언 할때마다 합쳐친다 => 확장
+
 ```typescript
 interface A { a: string }
 interface A { b: string }
@@ -191,6 +194,8 @@ const obj2: B = { a: 'hello', b: 'world' }
 ```
 
 - 객체 리터럴은 잉여 속성 검사가 있음.
+- 좁은 -> 넓은 타입 대입 가능 
+- 객체는 상세할수록 좁은 타입
 ```typescript
 type A = { hello: string };
 const a: A = { hello: 'world', why: 'error' };
@@ -200,6 +205,8 @@ const c: A = b;
 ```
 
 - void 타입은 return값을 사용하지 안 겠다는 뜻(메서드나 매개변수에서는 리턴값 사용 가능, but 조심해야 함)
+- 함수에서 void은 리턴값이 없다는거!!!!! , 
+- 메서드의 void: 리턴값 잇어두 됨, 매게변수의 void 각각 의미가 다르다: 리턴값이 잇어두됨 => 리턴값이 뭐든간에 사용하지 않겟다라는 뜻
 ```typescript
 declare function forEach<T>(arr: T[], callback: (el: T) => undefined): void;
 // declare function forEach<T>(arr: T[], callback: (el: T) => void): void;
@@ -213,6 +220,8 @@ const a: A = {
     talk() { return 3; }
 }
 ```
+
+-declare :내가 이 함수 타입을 선언을 햇다는건 보증해!!
 - 타입만 선언하고 싶을 때 declare(구현은 다른 파일에 있어야 함)
 ```typescript
 declare const a: string;
@@ -226,44 +235,63 @@ declare class A {}
 ![image](https://user-images.githubusercontent.com/10962668/179646513-3c3be896-3bbc-4784-848b-06bc47e8b129.png)
 
 - 타입 가드
+
 ```typescript
+import {Axios, AxiosError} from "axios";
+
+try {
+
+} catch (e) {
+    (e as AxiosError)
+}
+
 function numOrStr(a: number | string) {
-  if (typeof a === 'string') {
-    a.split(',');  
-  } else {
-    a.toFixed(1);
-  }
+    if (typeof a === 'string') {
+        a.split(',');
+    } else {
+        a.toFixed(1);
+    }
 }
 
 function numOrNumArr(a: number | number[]) {
-  if (Array.isArray(a)) {
-    a.slice(1);  
-  } else {
-    a.toFixed(1);
-  }
+    if (Array.isArray(a)) {
+        a.slice(1);
+    } else {
+        a.toFixed(1);
+    }
 }
 
 type B = { type: 'b', bbb: string };
 type C = { type: 'c', ccc: string };
 type D = { type: 'd', ddd: string };
 type A = B | C | D;
+
 function typeCheck(a: A) {
-  if (a.type === 'b') {
-    a.bbb;
-  } else if (a.type === 'c') {
-    a.ccc;
-  } else {
-    a.ddd;
-  }
+    if (a.type === 'b') {
+        a.bbb;
+    } else if (a.type === 'c') {
+        a.ccc;
+    } else {
+        a.ddd;
+    }
 }
 
-interface Cat { meow: number }
-interface Dog { bow: number }
-function catOrDog(a: Cat | Dog): a is Dog {
-  if ((a as Cat).meow) { return false }
-  return true;
+interface Cat {
+    meow: number
 }
-const cat: Cat | Dog = { meow: 3 }
+
+interface Dog {
+    bow: number
+}
+
+function catOrDog(a: Cat | Dog): a is Dog {
+    if ((a as Cat).meow) {
+        return false
+    }
+    return true;
+}
+
+const cat: Cat | Dog = {meow: 3}
 if (catOrDog(cat)) {
     console.log(cat.meow);
 }
