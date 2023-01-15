@@ -246,6 +246,7 @@ try {
 }
 
 function numOrStr(a: number | string) {
+    // a의 타입이 스트링에 국한되지 않구 인트형일수도 있으니깐 분기로 나눠줌  
     if (typeof a === 'string') {
         a.split(',');
     } else {
@@ -283,8 +284,10 @@ interface Cat {
 interface Dog {
     bow: number
 }
-
+// is 는 키워드는 함수 리턴에 쓰이는데 타입을 구분해주는 커스텀 함=> is 라는게 있어야지칸 조거문안에서 if (catOrDog(cat)) { 함수를 분기해준다
+// is => 커스텀 타입 가드 
 function catOrDog(a: Cat | Dog): a is Dog {
+    // 타입 판별을 내가 직접 만든다
     if ((a as Cat).meow) {
         return false
     }
@@ -292,6 +295,7 @@ function catOrDog(a: Cat | Dog): a is Dog {
 }
 
 const cat: Cat | Dog = {meow: 3}
+
 if (catOrDog(cat)) {
     console.log(cat.meow);
 }
@@ -305,13 +309,26 @@ const isFulfilled = <T>(input: PromiseSettledResult<T>): input is PromiseFulfill
 const promises = await Promise.allSettled([Promise.resolve('a'), Promise.resolve('b')]);
 const errors = promises.filter(isRejected);
 ```
+- {}, Object 모든 타입, object 객체(널과 언디파인은 제와) => 벅 지양 인터페이스 타입, 클랙스로
+- unknow = {} | null | nudefinded
+
 class인 경우 instanceof 연산자도 가능!
+
+
+
 - readonly
 ```typescript
 interface A {
-  readonly a: string;
+  readonly a: string; // 읽기 전용
   b: string;
 }
+type B = 'Human'| 'Mannal'| 'Animal'
+// 인덱스드 시그니맵
+type A = {[key:string]:number } // 키가 어떤거든 스트링이엿으면 좋겟고!! 값은 넘버엿으면 좋겟어!!!
+// 맵드 타입스 
+type  C = {[key in B]: B}
+
+
 ```
 - class에 private, protected 추가됨
 ```typescript
