@@ -336,6 +336,12 @@ class B implements A {
   private a: string;
   protected b: string;
 }
+
+//implements: 인퍼테이스를 가져다 쓸수 잇음 클래스는
+// private: 자바스크립트 내의 private는 #a로 선언할수 있는데 ts는 키워드로 해당 클래스 안에서만 사용 가능 한 속성 a는 B에서마 사용 
+//protected :B에서마 사요요인데 대신 상속 받은 애들까지 접근 가능
+
+
 class C extends B {}
 new C().a;
 new C().b;
@@ -351,7 +357,8 @@ class Y extends X {
   }
 }
 ```
-- abstract class, abstract 생성자
+- abstract class, abstract 생성자=> 추상적 개념 타입스크립트에서-> 자바스크립트에서 변환했을때 날라간다
+- abstract도 method를 가질수도 있지만 반드시 구현쪽에도 잇어 돌아간다
 ```typescript
 const constructor: abstract new (...args: any) => any = ...
 ```
@@ -398,6 +405,14 @@ add('1', '2')
 // <T extends (...args: any) => any> // 모든 함수
 // <T extends abstract new (...args: any) => any> // 생성자 타입
 // <T extends keyof any> // string | number | symbol
+
+
+
+//forEach 분석
+interface Array<T>{
+    forEach(callbsckfn:()=> (v:T,i:number,array:T[])=> void, thidArg?: any):void
+}
+
 ```
 - 함수에서 공변성과 반공변성 주의!
 ```typescript
