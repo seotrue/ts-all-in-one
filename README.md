@@ -415,6 +415,9 @@ interface Array<T>{
 
 ```
 - 함수에서 공변성과 반공변성 주의!
+1.리턴값:더 넓은 타입으로 대입 가능 (넓은->좁은x, 좁은-> 넓은o)
+2.매계변수: 리턴값과 반대 더 좁은 타입이면 대입 가능
+걍 왜외우자..... 
 ```typescript
 function a(x: string): number {
   return 0;
