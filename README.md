@@ -444,6 +444,8 @@ type B = (x: string | number) => number;
 let b: B = a;
 ```
 - 함수 오버로딩
+1. 같은 함수를  여러번 선언되어 잇는것-> 타입스트립트가 인식한다
+- declare : 선언만하구 구현부분을 다른곳에 해두 됨 -> 타입스크립트를 속일수 잇음
 ```typescript
 function add(x: number, y: number): number
 function add(x: string, y: string): string
