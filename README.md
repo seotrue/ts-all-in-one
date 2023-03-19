@@ -483,13 +483,14 @@ type Partial<T> = {
     [P in keyof T]?: T[P];
 };
 ```
-- Required
+- Required:옵션하게 선안한 타입을 필수값으로 변경해준다
 ```typescript
+// -? : 옵샤널을 빼줘러 - 기존의 오셔널인것들 빼주고 가줘와라
 type Required<T> = {
     [P in keyof T]-?: T[P];
 };
 ```
-- ReadOnly
+- Required: 수정을 못하게 막는 역활
 ```typescript
 type Readonly<T> = {
     readonly [P in keyof T]: T[P];
