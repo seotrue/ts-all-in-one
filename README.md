@@ -542,6 +542,11 @@ type InstanceType<T extends abstract new (...args: any) => any> = T extends abst
 ```
 - 기타
 ```typescript
+
+
+- infer: extends에서만 사용 가능,infer은 추론하다라는 뜻
+추론 조건? 추론 성공 시의 값: 추론 실패 시의 값
+
 /**
  * Convert string literal type to uppercase
  */
